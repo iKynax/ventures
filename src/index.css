@@ -10,6 +10,14 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Bake in the founders' preferred "90% zoomed" look on desktop by default.
+   Scoped above mobile breakpoint so phone touch targets stay full-size. */
+@media (min-width: 768px) {
+  html {
+    zoom: 0.9;
+  }
+}
+
 body {
   @apply bg-ink text-white font-sans antialiased;
   letter-spacing: -0.02em;
