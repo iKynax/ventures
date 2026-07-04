@@ -1,0 +1,35 @@
+import type { SchemeFlow } from '../types'
+
+export const whopFlow: SchemeFlow = {
+  direction: 'LR',
+  nodes: [
+    { id: 'browse', label: 'Browse campaigns', icon: 'list', kind: 'process', col: 0, row: 1, core: true, detail: { what: 'Filter Whop campaigns by rate and remaining budget.', tools: ['Whop'], tips: ['Avoid nearly-exhausted budgets — you edit for nothing'] } },
+    { id: 'rate', label: 'Good rate?', icon: 'help-circle', kind: 'decision', col: 1, row: 1, core: true, detail: { what: 'Target USD 0.80–1.50 per 1k views with healthy budget left.' } },
+    { id: 'study', label: 'Study top clips', icon: 'eye', kind: 'process', col: 2, row: 1, core: true, detail: { what: 'Deconstruct the campaign leaderboard: hook timing, captions, pacing.', time: '2–3 hrs' } },
+    { id: 'source', label: 'Source raw content', icon: 'download', kind: 'process', col: 3, row: 1, core: true, detail: { what: 'Download permitted source material per campaign rules.', tips: ['Read content rules carefully — violations void payouts'] } },
+    { id: 'edit', label: 'Edit clips', icon: 'scissors', kind: 'process', col: 4, row: 1, core: true, detail: { what: 'Hook in the first 1.5s, hard captions, tight cuts, one idea per clip.', tools: ['CapCut', 'OpusClip'], time: '3–4 hrs/day' } },
+    { id: 'post', label: 'Post TikTok/Shorts/Reels', icon: 'send', kind: 'process', col: 5, row: 1, core: true, detail: { what: 'Multiple accounts/platforms where the campaign allows.' } },
+    { id: 'track', label: 'Track views vs cap', icon: 'bar-chart', kind: 'process', col: 6, row: 1, core: true, detail: { what: 'Log views against payout caps in a sheet.' } },
+    { id: 'converting', label: 'Views converting?', icon: 'help-circle', kind: 'decision', col: 7, row: 1, core: true },
+    { id: 'batch', label: 'Batch more clips', icon: 'layers', kind: 'process', col: 8, row: 1, core: true, detail: { what: 'Double down on formats that hit the algorithm.' } },
+    { id: 'submit', label: 'Submit for payout', icon: 'coins', kind: 'process', col: 9, row: 1, core: true, detail: { what: 'Submit promptly — budgets run out mid-cycle.' } },
+    { id: 'budget', label: 'Budget left?', icon: 'help-circle', kind: 'decision', col: 10, row: 1, core: true },
+  ],
+  edges: [
+    { source: 'browse', target: 'rate', core: true },
+    { source: 'rate', target: 'browse', label: 'No' },
+    { source: 'rate', target: 'study', label: 'Yes', core: true },
+    { source: 'study', target: 'source', core: true },
+    { source: 'source', target: 'edit', core: true },
+    { source: 'edit', target: 'post', core: true },
+    { source: 'post', target: 'track', core: true },
+    { source: 'track', target: 'converting', core: true },
+    { source: 'converting', target: 'study', label: 'No' },
+    { source: 'converting', target: 'batch', label: 'Yes', core: true },
+    { source: 'batch', target: 'submit', core: true },
+    { source: 'submit', target: 'budget', core: true },
+    { source: 'budget', target: 'batch', label: 'Yes' },
+    { source: 'budget', target: 'browse', label: 'No' },
+  ],
+  playOrder: ['browse', 'rate', 'study', 'source', 'edit', 'post', 'track', 'converting', 'batch', 'submit', 'budget'],
+}

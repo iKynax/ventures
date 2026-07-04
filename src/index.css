@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ink text-white font-sans antialiased;
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: rgba(232, 112, 42, 0.35);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
+}
+
+/* ---------- Hero animations ---------- */
+@keyframes ken-burns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes blur-rise {
+  0% {
+    opacity: 0;
+    filter: blur(14px);
+    transform: translateY(32px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 18s var(--ease-expo) forwards;
+}
+
+.blur-rise {
+  opacity: 0;
+  animation: blur-rise 1.1s var(--ease-expo) forwards;
+}
+
+.fade-up {
+  opacity: 0;
+  animation: fade-up 0.9s var(--ease-expo) forwards;
+}
+
+/* ---------- Animated grid background ---------- */
+@keyframes grid-drift {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 52px 52px, 52px 52px;
+  }
+}
+
+.animated-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  animation: grid-drift 24s linear infinite;
+  -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, #000 55%, transparent 100%);
+}
+
+.grid-glow {
+  background:
+    radial-gradient(ellipse 50% 40% at 15% 0%, rgba(232, 112, 42, 0.08), transparent 60%),
+    radial-gradient(ellipse 50% 45% at 85% 30%, rgba(232, 112, 42, 0.05), transparent 55%);
+}
+
+/* ---------- React Flow dark theme ---------- */
+.react-flow__attribution {
+  background: transparent !important;
+}
+.react-flow__attribution a {
+  color: rgba(255, 255, 255, 0.25) !important;
+}
+
+@keyframes edge-dash {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+.ventures-edge path.react-flow__edge-path {
+  stroke-dasharray: 6 4;
+  animation: edge-dash 1.2s linear infinite;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .blur-rise,
+  .fade-up {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+  .animated-grid {
+    animation: none;
+  }
+}

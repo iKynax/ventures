@@ -1,0 +1,17 @@
+# dependencies
+node_modules/
+
+# build output (built by CI, not committed)
+dist/
+dist-ssr/
+
+# logs
+*.log
+npm-debug.log*
+
+# editor / OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.local

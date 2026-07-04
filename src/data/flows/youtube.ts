@@ -1,0 +1,35 @@
+import type { SchemeFlow } from '../types'
+
+export const youtubeFlow: SchemeFlow = {
+  direction: 'LR',
+  nodes: [
+    { id: 'niche', label: 'Pick high-RPM niche', icon: 'target', kind: 'process', col: 0, row: 1, core: true, detail: { what: 'Finance, business, tech explainer — RPM of USD 10–25 vs 1–3 is the whole economics.', time: '2 days' } },
+    { id: 'research', label: 'Keyword + title research', icon: 'search', kind: 'process', col: 1, row: 1, core: true, detail: { what: 'Package first: title and thumbnail decide click-through and distribution.', tools: ['vidIQ'] } },
+    { id: 'script', label: 'Script generation', icon: 'file-text', kind: 'process', col: 2, row: 1, core: true, detail: { what: 'LLM draft with a human edit pass — pure automation gets demonetized.', tools: ['Claude API'] } },
+    { id: 'tts', label: 'TTS voiceover', icon: 'mic', kind: 'process', col: 3, row: 1, core: true, detail: { what: 'Natural AI narration.', tools: ['ElevenLabs'] } },
+    { id: 'visuals', label: 'Visuals', icon: 'image', kind: 'process', col: 4, row: 1, core: true, detail: { what: 'AI images + stock + motion graphics.', tools: ['Midjourney', 'Flux'] } },
+    { id: 'assemble', label: 'FFmpeg assembly', icon: 'film', kind: 'process', col: 5, row: 1, core: true, detail: { what: 'Programmatic assembly + captions — this is a software project, your edge.', tools: ['FFmpeg'] } },
+    { id: 'thumb', label: 'Thumbnail + metadata', icon: 'layout', kind: 'process', col: 6, row: 1, core: true, detail: { what: 'CTR-optimized thumbnail, keyworded title and description.' } },
+    { id: 'upload', label: 'Upload + schedule', icon: 'upload', kind: 'process', col: 7, row: 1, core: true, detail: { what: 'Ship 2–3/week with a quality floor.' } },
+    { id: 'monetized', label: 'Monetized?', icon: 'help-circle', kind: 'decision', col: 8, row: 1, core: true, detail: { what: '1k subs + 4k watch hours (or Shorts thresholds).' } },
+    { id: 'grow', label: 'Grow to threshold', icon: 'trending-up', kind: 'process', col: 8, row: 0, detail: { what: 'Affiliate links monetize before AdSense does.' } },
+    { id: 'revenue', label: 'AdSense + sponsors + affiliate', icon: 'coins', kind: 'process', col: 9, row: 1, core: true, detail: { what: 'Stacked revenue: ads, sponsorships at 20k+ subs, affiliate throughout.' } },
+    { id: 'double', label: 'Double down on winners', icon: 'award', kind: 'terminal', col: 10, row: 1, core: true, detail: { what: 'Find outlier videos, make 5 variations each.' } },
+  ],
+  edges: [
+    { source: 'niche', target: 'research', core: true },
+    { source: 'research', target: 'script', core: true },
+    { source: 'script', target: 'tts', core: true },
+    { source: 'tts', target: 'visuals', core: true },
+    { source: 'visuals', target: 'assemble', core: true },
+    { source: 'assemble', target: 'thumb', core: true },
+    { source: 'thumb', target: 'upload', core: true },
+    { source: 'upload', target: 'monetized', core: true },
+    { source: 'monetized', target: 'grow', label: 'Not yet' },
+    { source: 'grow', target: 'upload' },
+    { source: 'monetized', target: 'revenue', label: 'Yes', core: true },
+    { source: 'revenue', target: 'double', core: true },
+    { source: 'double', target: 'script', label: 'Repeat' },
+  ],
+  playOrder: ['niche', 'research', 'script', 'tts', 'visuals', 'assemble', 'thumb', 'upload', 'monetized', 'revenue', 'double'],
+}
